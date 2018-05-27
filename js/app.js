@@ -1,6 +1,6 @@
 // Enemies our player must avoid
 var Enemy = function(x,y,velX) {
-    this.x = -100;
+    this.x = x*-100;
     this.y = y*70;
     this.velX = velX;
     this.sprite = 'images/enemy-bug.png';
@@ -24,30 +24,33 @@ Enemy.prototype.render = function() {
 };
 
 // Now write your own player class
-var Player = function(x,y){
-    this.x = 100;
-    this.y = 70;
-    this.sprite = 'images/char-horn-girl.png';
-};
-
-
 // This class requires an update(), render() and
 // a handleInput() method.
-Player.prototype.update = function(){
-    
+class Player {
+    constructor(x,y){
+        this.x = x*100;
+        this.y = y*70;
+        this.sprite = 'images/char-horn-girl.png';
+    };
+    update(){
+
+    };
+
+    render(){
+
+    };
+
+    handleInput(){
+
+    };
 };
 
-Player.prototype.render = function(){
 
-};
 
-Player.prototype.handleInput = function(){
-
-};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var allEnemies = [new Enemy(0, 1, 1), new Enemy(0, 2, 3), new Enemy(0, 3, 2), new Enemy(-1, 3, 1)];
+var allEnemies = [new Enemy(0, 1, 1), new Enemy(0, 2, 3), new Enemy(0, 3, 2), new Enemy(0, 3, 1)];
 // Place the player object in a variable called player
 var player = new Player(2,5);
 

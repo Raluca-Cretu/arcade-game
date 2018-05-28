@@ -29,19 +29,31 @@ Enemy.prototype.render = function() {
 class Player {
     constructor(x,y){
         this.x = x*100;
-        this.y = y*70;
+        this.y = y*80;
         this.sprite = 'images/char-horn-girl.png';
     };
     update(){
-
+        if(this.y > 606){
+            this.y = 80;
+        }
+        if (this.x > 505){
+            this.x = 100;
+        }
     };
-
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     };
 
-    handleInput(){
-
+    handleInput(key){
+        if(key=="left"){
+            this.x -= 100;
+        }else if(key=="right"){
+            this.x += 100;
+        }else if(key=="up"){
+            this.y -= 80;
+        }else if(key=="down"){
+            this.y += 80;
+        }
     };
 };
 

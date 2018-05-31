@@ -4,6 +4,8 @@ var Enemy = function(x,y,velX) {
     this.y = y*70;
     this.velX = velX;
     this.sprite = 'images/enemy-bug.png';
+    this.width = 20;
+    this.height = 40;
 };
 
 // Update the enemy's position, required method for game
@@ -23,6 +25,17 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
+Enemy.prototype.collision = function(Player) {
+    if (this.x < Player.x + Player.width &&
+       this.x + this.width > Player.x &&
+       this.y < Player.y + Player.height &&
+       this.height + this.y > Player.y) {
+        alert('lalala');
+    }
+};
+
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -31,6 +44,8 @@ class Player {
         this.x = x*100;
         this.y = y*80;
         this.sprite = 'images/char-horn-girl.png';
+        this.width = 20;
+        this.height = 40;
     };
     update(){
         if(this.y > 606){
@@ -54,9 +69,6 @@ class Player {
         }else if(key=="down" && this.y < 400){
             this.y += 80;
         }
-    };
-    collision(){
-
     };
 };
 

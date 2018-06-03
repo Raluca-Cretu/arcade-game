@@ -83,10 +83,8 @@ var Key= function(x, y) {
 };
 
 Key.prototype.update = function() {
-        this.x = Math.floor(Math.random() * 500) + 100;
-        this.y = Math.floor(Math.random() * 210) + 70;
-
-        Math.floor(Math.random() * (max - min)) + min;
+        this.x =  Math.floor(Math.random() * (500 - 100)) + 100;
+        this.y = Math.floor(Math.random() * (210 - 70)) + 70;
 };
 
 Key.prototype.render = function() {
@@ -100,7 +98,7 @@ Key.prototype.render = function() {
 var allEnemies = [new Enemy(0, 1, 1), new Enemy(0, 2, 3), new Enemy(0, 3, 2), new Enemy(0, 3, 1)];
 // Place the player object in a variable called player
 var player = new Player(2, 5);
-var key = new Key(1, 1);
+var key = new Key(2, 2);
 
 
 

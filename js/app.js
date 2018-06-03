@@ -4,8 +4,8 @@ var Enemy = function(x,y,velX) {
     this.y = y*70;
     this.velX = velX;
     this.sprite = 'images/enemy-bug.png';
-    this.width = 20;
-    this.height = 40;
+    this.width = 100;
+    this.height = 170;
 };
 
 // Update the enemy's position, required method for game
@@ -26,12 +26,12 @@ Enemy.prototype.render = function() {
 };
 
 
-Enemy.prototype.collision = function(Player) {
-    if (this.x < Player.x + Player.width &&
-       this.x + this.width > Player.x &&
-       this.y < Player.y + Player.height &&
-       this.height + this.y > Player.y) {
-        alert('lalala');
+Enemy.prototype.collision = function(player) {
+    if (this.x < player.x + player.width &&
+       this.x + this.width > player.x &&
+       this.y < player.y + player.height &&
+       this.height + this.y > player.y) {
+        console.log('lalala');
     }
 };
 
@@ -44,8 +44,8 @@ class Player {
         this.x = x*100;
         this.y = y*80;
         this.sprite = 'images/char-horn-girl.png';
-        this.width = 20;
-        this.height = 40;
+        this.width = 100;
+        this.height = 170;
     };
     update(){
         if(this.y > 606){
@@ -73,11 +73,33 @@ class Player {
 };
 
 
+var Key= function(x, y) {
+    this.x = x*100;
+    this.y = y*80;
+    this.sprite = 'images/Key.png';
+};
+
+Key.prototype.update = function() {
+        this.x = Math.floor(Math.random() * 500) + 100;
+        this.y = Math.floor(Math.random() * 210) + 70;
+};
+
+Key.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [new Enemy(0, 1, 1), new Enemy(0, 2, 3), new Enemy(0, 3, 2), new Enemy(0, 3, 1)];
 // Place the player object in a variable called player
-var player = new Player(2,5);
+var player = new Player(2, 5);
+var key = new Key(1, 1);
+
+for (let i = 0; i < allEnemies.length; i++) {
+    allEnemies[i].collision(player);
+}
 
 
 // This listens for key presses and sends the keys to your

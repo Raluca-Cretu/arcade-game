@@ -31,7 +31,7 @@ Enemy.prototype.collision = function(player) {
        this.x + this.width > player.x &&
        this.y < player.y + player.height &&
        this.height + this.y > player.y) {
-        console.log('lalala');
+        restart(); 
     }
 };
 
@@ -83,8 +83,10 @@ var Key= function(x, y) {
 };
 
 Key.prototype.update = function() {
-        this.x =  Math.floor(Math.random() * (500 - 100)) + 100;
-        this.y = Math.floor(Math.random() * (210 - 70)) + 70;
+        //this.x =  Math.floor(Math.random() * (500 - 100)) + 100;
+        //this.y = Math.floor(Math.random() * (210 - 70)) + 70;
+        this.x = Math.floor(Math.random() * 5) *100;
+        this.y = (Math.floor(Math.random() * 3) + 1) *80 ;
 };
 
 Key.prototype.render = function() {
@@ -92,6 +94,9 @@ Key.prototype.render = function() {
 };
 
 
+function restart() {
+
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies

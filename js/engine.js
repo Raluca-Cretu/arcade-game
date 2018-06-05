@@ -66,6 +66,7 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
+        key.update();
     }
 
     /* This function is called by main (our game loop) and itself calls all

@@ -18,6 +18,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 505){
         this.x = -100;
     }
+    key.update();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -31,7 +32,7 @@ Enemy.prototype.collision = function(player) {
        this.x + this.width > player.x &&
        this.y < player.y + player.height &&
        this.height + this.y > player.y) {
-        restart(); 
+        //restart(); 
     }
 };
 
@@ -73,6 +74,7 @@ Player.prototype.handleInput = function(key){
         }else if(key=="down" && this.y < 400){
             this.y += 80;
         }
+
 };
 
 
@@ -80,23 +82,28 @@ var Key= function(x, y) {
     this.x = x*100;
     this.y = y*80;
     this.sprite = 'images/Key.png';
+    this.width = 90;
+    this.height = 50;
+    setInterval(function(){ key.update(); }, 3000);
 };
 
 Key.prototype.update = function() {
-        //this.x =  Math.floor(Math.random() * (500 - 100)) + 100;
-        //this.y = Math.floor(Math.random() * (210 - 70)) + 70;
-        this.x = Math.floor(Math.random() * 5) *100;
-        this.y = (Math.floor(Math.random() * 3) + 1) *80 ;
+    this.x = (Math.floor(Math.random() * 5) *100);
+    this.y = (Math.floor(Math.random() * 3) *80);
+    /* key collision
+    if (player.collision(this)) {
+        this.x = -100;
+        this.y= -80;
+        console.log('key!!');
+        document.getElementById("key").innerHTML=1;
+    };
+    */
 };
 
 Key.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
-function restart() {
-
-}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -107,7 +114,15 @@ var key = new Key(2, 2);
 
 
 
+/*
+function restart() {
+    alert("You lost.\nStart again!");
+    document.getElementById("key").innerHTML=0;
+    
+}
+*/
 
+ 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {

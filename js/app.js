@@ -44,6 +44,8 @@ var Player = function (x,y){
         this.sprite = 'images/char-horn-girl.png';
         this.width = 90;
         this.height = 50;
+        this.points = 0;
+
 };
 
 Player.prototype.update = function(){
@@ -56,6 +58,7 @@ Player.prototype.update = function(){
         for (let i = 0; i < allEnemies.length; i++) {
            allEnemies[i].collision(this);
         }
+        key.collision(this);
 };
 
 Player.prototype.render = function(){
@@ -82,6 +85,7 @@ var Key= function(x, y) {
     this.sprite = 'images/Key.png';
     this.width = 90;
     this.height = 50;
+    let points = document.getElementById("key").innerHTML;
     const self = this;
     setInterval(function() {key.update(); }.bind(this), 3000);
 };
@@ -89,21 +93,23 @@ var Key= function(x, y) {
 Key.prototype.update = function() {
     this.x = Math.floor(Math.random() * 5) *100;
     this.y = (Math.floor(Math.random() * 3) +1) *80;
-    /* key collision
-    if (player.collision(this)) {
-        this.x = -100;
-        this.y= -80;
-        console.log('key!!');
-        document.getElementById("key").innerHTML=1;
-    };
-    */
 };
 
 Key.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
+Key.prototype.collision = function(player) {
+    if (this.x < player.x + player.width &&
+       this.x + this.width > player.x &&
+       this.y < player.y + player.height &&
+       this.height + this.y > player.y) {
+            this.x = -100;
+            this.y= -80;
+            console.log('key!!');
+            key.points ++;
+    }
+};
 
 
 

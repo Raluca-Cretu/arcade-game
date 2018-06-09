@@ -18,7 +18,6 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 505){
         this.x = -100;
     }
-    key.update();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -37,8 +36,7 @@ Enemy.prototype.collision = function(player) {
 };
 
 
-// Now write your own player class
-// This class requires an update(), render() and
+// Player class with an update(), render() and
 // a handleInput() method.
 var Player = function (x,y){
         this.x = x*101;
@@ -74,22 +72,23 @@ Player.prototype.handleInput = function(key){
         }else if(key=="down" && this.y < 400){
             this.y += 80;
         }
-
 };
 
 
+// Key class with update() and render() methods
 var Key= function(x, y) {
     this.x = x*100;
     this.y = y*80;
     this.sprite = 'images/Key.png';
     this.width = 90;
     this.height = 50;
-    setInterval(function(){ key.update(); }, 3000);
+    const self = this;
+    setInterval(function() {key.update(); }.bind(this), 3000);
 };
 
 Key.prototype.update = function() {
-    this.x = (Math.floor(Math.random() * 5) *100);
-    this.y = (Math.floor(Math.random() * 3) *80);
+    this.x = Math.floor(Math.random() * 5) *100;
+    this.y = (Math.floor(Math.random() * 3) +1) *80;
     /* key collision
     if (player.collision(this)) {
         this.x = -100;
@@ -103,6 +102,9 @@ Key.prototype.update = function() {
 Key.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+
+
 
 
 // Now instantiate your objects.

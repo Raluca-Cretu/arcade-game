@@ -52,6 +52,10 @@ Player.prototype.update = function(){
         if (this.x > 505){
             this.x = 100;
         }
+        if (this.x > 0 && this.y < 80) {
+            alert("You Won!.\n You manage to collect key.pointsCount key/ keys! \n Start again?");
+            restart();
+        }
         for (let i = 0; i < allEnemies.length; i++) {
            allEnemies[i].collision(this);
         }
@@ -125,7 +129,7 @@ var key = new Key(2, 2);
 // Game restart function
 function restart() {
     alert("You lost.\nStart again!");
-    key.points=0;
+    key.points.innerHTML=0;
 }
 
 

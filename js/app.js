@@ -1,4 +1,4 @@
-// Enemies our player must avoid
+// Enemy class with update(), render() and collision() methods
 var Enemy = function(x,y,velX) {
     this.x = x*-101;
     this.y = y*78;
@@ -8,36 +8,33 @@ var Enemy = function(x,y,velX) {
     this.height = 50;
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+//Enemy position
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
     this.x += this.velX*100*dt;
     if (this.x > 505){
         this.x = -100;
     }
 };
 
-// Draw the enemy on the screen, required method for game
+//Draw enemy on the canvas
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
+//Enemy collison with the player
 Enemy.prototype.collision = function(player) {
     if (this.x < player.x + player.width &&
-       this.x + this.width > player.x &&
-       this.y < player.y + player.height &&
-       this.height + this.y > player.y) {
-        //restart(); 
+        this.x + this.width > player.x &&
+        this.y < player.y + player.height &&
+        this.height + this.y > player.y) {
+            restart();
+            player.x= 200;
+            player.y= 400;
     }
 };
 
 
-// Player class with an update(), render() and
-// a handleInput() method.
+// Player class with an update(), render() and a handleInput() method.
 var Player = function (x,y){
         this.x = x*101;
         this.y = y*83;
@@ -45,9 +42,9 @@ var Player = function (x,y){
         this.width = 90;
         this.height = 50;
         this.points = 0;
-
 };
 
+//Player position
 Player.prototype.update = function(){
         if(this.y > 606){
             this.y = 80;
@@ -61,10 +58,12 @@ Player.prototype.update = function(){
         key.collision(this);
 };
 
+//Draw player on the canvas
 Player.prototype.render = function(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Player moves according to the key input
 Player.prototype.handleInput = function(key){
         if(key=="left" && this.x > 0){
             this.x -= 100;
@@ -78,61 +77,61 @@ Player.prototype.handleInput = function(key){
 };
 
 
-// Key class with update() and render() methods
+// Key class with update(), render() and collision() methods
 var Key= function(x, y) {
     this.x = x*100;
     this.y = y*80;
     this.sprite = 'images/Key.png';
     this.width = 90;
     this.height = 50;
-    let points = document.getElementById("key").innerHTML;
+    const points = document.getElementById("key");
+    let pointsCount = 0;
     const self = this;
-    setInterval(function() {key.update(); }.bind(this), 3000);
+    setInterval(function() {key.update(); }.bind(this), 4000);
 };
 
+//Key position
 Key.prototype.update = function() {
     this.x = Math.floor(Math.random() * 5) *100;
     this.y = (Math.floor(Math.random() * 3) +1) *80;
 };
 
+//Draw key on the canvas
 Key.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Key collison with the player
 Key.prototype.collision = function(player) {
     if (this.x < player.x + player.width &&
        this.x + this.width > player.x &&
        this.y < player.y + player.height &&
        this.height + this.y > player.y) {
-            this.x = -100;
-            this.y= -80;
             console.log('key!!');
-            key.points ++;
+            this.pointsCount ++;
+            this.points.innerHTML = key.pointsCount;
+            this.update();
     }
 };
 
 
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
+// Instantiate the objects
 var allEnemies = [new Enemy(0, 1, 1), new Enemy(0, 2, 3), new Enemy(0, 3, 2), new Enemy(0, 3, 1)];
-// Place the player object in a variable called player
 var player = new Player(2, 5);
 var key = new Key(2, 2);
 
 
 
-/*
+// Game restart function
 function restart() {
     alert("You lost.\nStart again!");
-    document.getElementById("key").innerHTML=0;
-    
+    key.points=0;
 }
-*/
 
- 
+
+
 // This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',

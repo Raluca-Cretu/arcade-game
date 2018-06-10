@@ -17,9 +17,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 505){
         this.x = -100;
     }
-    for (let i = 0; i < allEnemies.length; i++) {
-        allEnemies[i].collision();
-    }
+    this.collision(player);
 };
 
 //Draw enemy on the canvas
@@ -61,7 +59,7 @@ Player.prototype.update = function(){
             alert("You Won!.\n You manage to collect key.pointsCount key/ keys! \n Start again?");
             restart();
         }
-        this.collision();
+        this.collision(key);
 };
 
 //Draw player on the canvas
@@ -81,6 +79,7 @@ Player.prototype.handleInput = function(key){
             this.y += 80;
         }
 };
+
 
 //Player collison with the player
 Player.prototype.collision = function(key) {

@@ -20,6 +20,7 @@
     "gulp": "^4.0.0"
   },
   "dependencies": {
+    "eslint": "^4.19.1",
     "gulp-sass": "^4.0.1"
   }
 }

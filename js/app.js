@@ -1,3 +1,6 @@
+const points = document.getElementById("key");
+let pointsCount = 0;
+
 // Enemy class with update(), render() and collision() methods
 var Enemy = function(x,y,velX) {
     this.x = x*-101;
@@ -13,6 +16,9 @@ Enemy.prototype.update = function(dt) {
     this.x += this.velX*100*dt;
     if (this.x > 505){
         this.x = -100;
+    }
+    for (let i = 0; i < allEnemies.length; i++) {
+        allEnemies[i].collision();
     }
 };
 
@@ -41,7 +47,6 @@ var Player = function (x,y){
         this.sprite = 'images/char-horn-girl.png';
         this.width = 90;
         this.height = 50;
-        this.points = 0;
 };
 
 //Player position
@@ -56,10 +61,7 @@ Player.prototype.update = function(){
             alert("You Won!.\n You manage to collect key.pointsCount key/ keys! \n Start again?");
             restart();
         }
-        for (let i = 0; i < allEnemies.length; i++) {
-           allEnemies[i].collision(this);
-        }
-        key.collision(this);
+        this.collision();
 };
 
 //Draw player on the canvas
@@ -80,6 +82,17 @@ Player.prototype.handleInput = function(key){
         }
 };
 
+//Player collison with the player
+Player.prototype.collision = function(key) {
+    if (this.x < key.x + key.width &&
+       this.x + this.width > key.x &&
+       this.y < key.y + key.height &&
+       this.height + this.y > key.y) {
+            console.log('key!!');
+            pointsCount ++;
+            points.innerHTML = pointsCount;
+    }
+};
 
 // Key class with update(), render() and collision() methods
 var Key= function(x, y) {
@@ -88,10 +101,8 @@ var Key= function(x, y) {
     this.sprite = 'images/Key.png';
     this.width = 90;
     this.height = 50;
-    const points = document.getElementById("key");
-    let pointsCount = 0;
     const self = this;
-    setInterval(function() {key.update(); }.bind(this), 4000);
+    setInterval(function() {this.update(); }.bind(this), 4000);
 };
 
 //Key position
@@ -105,18 +116,7 @@ Key.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//Key collison with the player
-Key.prototype.collision = function(player) {
-    if (this.x < player.x + player.width &&
-       this.x + this.width > player.x &&
-       this.y < player.y + player.height &&
-       this.height + this.y > player.y) {
-            console.log('key!!');
-            this.pointsCount ++;
-            this.points.innerHTML = key.pointsCount;
-            this.update();
-    }
-};
+
 
 
 // Instantiate the objects
@@ -129,7 +129,7 @@ var key = new Key(2, 2);
 // Game restart function
 function restart() {
     alert("You lost.\nStart again!");
-    key.points.innerHTML=0;
+    points.innerHTML=0;
 }
 
 

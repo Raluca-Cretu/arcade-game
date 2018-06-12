@@ -59,7 +59,6 @@ Player.prototype.update = function(){
             alert("You Won!.\n You manage to collect key.pointsCount key/ keys! \n Start again?");
             restart();
         }
-        this.collision(key);
 };
 
 //Draw player on the canvas
@@ -68,16 +67,17 @@ Player.prototype.render = function(){
 };
 
 //Player moves according to the key input
-Player.prototype.handleInput = function(key){
-        if(key=="left" && this.x > 0){
+Player.prototype.handleInput = function(direction){
+        if(direction=="left" && this.x > 0){
             this.x -= 100;
-        }else if(key=="right" && this.x < 400){
+        }else if(direction=="right" && this.x < 400){
             this.x += 100;
-        }else if(key=="up" && this.y > 0){
+        }else if(direction=="up" && this.y > 0){
             this.y -= 80;
-        }else if(key=="down" && this.y < 400){
+        }else if(direction=="down" && this.y < 400){
             this.y += 80;
         }
+        this.collision(key);
 };
 
 

@@ -54,7 +54,7 @@ Player.prototype.update = function(){
     if (this.x > 505){
         this.x = 100;
     }
-    if (this.x > 0 && this.y < 20) {
+    if (this.x > 0 && this.y < 1) {
         alert("You Won!.\n You manage to collect points.innerHTML key/ keys! \n Start again?");
         restart();
     }
@@ -77,7 +77,6 @@ Player.prototype.handleInput = function(direction){
             this.y += 80;
         }
         this.collision(key);
-
 };
 
 
@@ -117,12 +116,10 @@ Key.prototype.render = function() {
 
 
 
-
 // Instantiate the objects
 var allEnemies = [new Enemy(0, 1, 1), new Enemy(0, 2, 3), new Enemy(0, 3, 2), new Enemy(0, 3, 1)];
 var player = new Player(2, 5);
 var key = new Key(2, 2);
-
 
 
 // Game restart function

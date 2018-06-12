@@ -31,9 +31,8 @@ Enemy.prototype.collision = function(player) {
         this.x + this.width > player.x &&
         this.y < player.y + player.height &&
         this.height + this.y > player.y) {
+            alert("You lost.\nStart again!");
             restart();
-            player.x= 200;
-            player.y= 400;
     }
 };
 
@@ -49,16 +48,16 @@ var Player = function (x,y){
 
 //Player position
 Player.prototype.update = function(){
-        if(this.y > 606){
-            this.y = 80;
-        }
-        if (this.x > 505){
-            this.x = 100;
-        }
-        if (this.x > 0 && this.y < 80) {
-            alert("You Won!.\n You manage to collect key.pointsCount key/ keys! \n Start again?");
-            restart();
-        }
+    if(this.y > 606){
+        this.y = 80;
+    }
+    if (this.x > 505){
+        this.x = 100;
+    }
+    if (this.x > 0 && this.y < 20) {
+        alert("You Won!.\n You manage to collect points.innerHTML key/ keys! \n Start again?");
+        restart();
+    }
 };
 
 //Draw player on the canvas
@@ -78,6 +77,7 @@ Player.prototype.handleInput = function(direction){
             this.y += 80;
         }
         this.collision(key);
+
 };
 
 
@@ -127,11 +127,10 @@ var key = new Key(2, 2);
 
 // Game restart function
 function restart() {
-    alert("You lost.\nStart again!");
     points.innerHTML=0;
+    player.x= 200;
+    player.y= 400;
 }
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.

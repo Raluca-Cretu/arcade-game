@@ -69,7 +69,6 @@ Player.prototype.render = function(){
 
 //Player moves according to the key input
 Player.prototype.handleInput = function(direction){
-        console.log(this.x);
         if(direction=="left" && this.x > 0){
             this.x -= 100;
         }else if(direction=="right" && this.x < 400){

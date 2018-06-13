@@ -48,14 +48,16 @@ var Player = function (x,y){
 
 //Player position
 Player.prototype.update = function(){
-    if(this.y > 606){
-        this.y = 80;
+    if(this.y>600){
+        this.y = 600;
     }
-    if (this.x > 505){
-        this.x = 100;
+    if (this.x > 404){
+        this.x = 0;
+    }else if (this.x < 0){
+        this.x = 404;
     }
     if (this.x > 0 && this.y < 1) {
-        alert("You Won!.\n You manage to collect points.innerHTML key/ keys! \n Start again?");
+        alert("You Won! \nYou manage to collect " + points.innerHTML + " key/ keys! \nStart again?");
         restart();
     }
 };
@@ -67,6 +69,7 @@ Player.prototype.render = function(){
 
 //Player moves according to the key input
 Player.prototype.handleInput = function(direction){
+        console.log(this.x);
         if(direction=="left" && this.x > 0){
             this.x -= 100;
         }else if(direction=="right" && this.x < 400){

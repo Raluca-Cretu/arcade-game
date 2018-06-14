@@ -7,8 +7,8 @@ var Enemy = function(x,y,velX) {
     this.y = y*78;
     this.velX = velX;
     this.sprite = 'images/enemy-bug.png';
-    this.width = 90;
-    this.height = 50;
+    this.width = 30;
+    this.height = 30;
 };
 
 //Enemy position
@@ -31,19 +31,19 @@ Enemy.prototype.collision = function(player) {
         this.x + this.width > player.x &&
         this.y < player.y + player.height &&
         this.height + this.y > player.y) {
-            alert("You lost.\nStart again!");
-            restart();
+        alert("You lost.\nStart again!");
+        restart();
     }
 };
 
 
 // Player class with an update(), render() and a handleInput() method.
 var Player = function (x,y){
-        this.x = x*101;
-        this.y = y*83;
-        this.sprite = 'images/char-horn-girl.png';
-        this.width = 90;
-        this.height = 50;
+    this.x = x*101;
+    this.y = y*83;
+    this.sprite = 'images/char-horn-girl.png';
+    this.width = 30;
+    this.height = 30;
 };
 
 //Player position
@@ -64,33 +64,32 @@ Player.prototype.update = function(){
 
 //Draw player on the canvas
 Player.prototype.render = function(){
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 //Player moves according to the key input
 Player.prototype.handleInput = function(direction){
-        if(direction=="left" && this.x > 0){
-            this.x -= 100;
-        }else if(direction=="right" && this.x < 400){
-            this.x += 100;
-        }else if(direction=="up" && this.y > 0){
-            this.y -= 80;
-        }else if(direction=="down" && this.y < 400){
-            this.y += 80;
-        }
-        this.collision(key);
+    if(direction=="left" && this.x > 0){
+        this.x -= 100;
+    }else if(direction=="right" && this.x < 400){
+        this.x += 100;
+    }else if(direction=="up" && this.y > 0){
+        this.y -= 80;
+    }else if(direction=="down" && this.y < 400){
+        this.y += 80;
+    }
+    this.collision(key);
 };
 
 
 //Player collison with the player
 Player.prototype.collision = function(key) {
     if (this.x < key.x + key.width &&
-       this.x + this.width > key.x &&
-       this.y < key.y + key.height &&
-       this.height + this.y > key.y) {
-            console.log('key!!');
-            pointsCount ++;
-            points.innerHTML = pointsCount;
+        this.x + this.width > key.x &&
+        this.y < key.y + key.height &&
+        this.height + this.y > key.y) {
+        pointsCount ++;
+        points.innerHTML = pointsCount;
     }
 };
 
@@ -99,8 +98,8 @@ var Key= function(x, y) {
     this.x = x*100;
     this.y = y*80;
     this.sprite = 'images/Key.png';
-    this.width = 90;
-    this.height = 50;
+    this.width = 30;
+    this.height = 30;
     const self = this;
     setInterval(function() {this.update(); }.bind(this), 4000);
 };
